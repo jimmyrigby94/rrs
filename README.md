@@ -187,7 +187,7 @@ model_1$princ_axis
     ## 3 Second Intercept -2.1500895
     ## 4 Second     Slope -0.7089616
 
-## Plotting Functions
+### Plotting Functions
 
 Finally, this can all be plotted using a wrapper that builds the
 response surface plot in an interactive fashion. While the interactive
@@ -208,3 +208,9 @@ plot_ly_surf(obj = model_1,
 ```
 
 ![Still frame of plot\_ly\_surf() output.](README%20Example.png)
+
+### Future Developments
+1. Wrapper for the power calculations of line of congruence and line of incongruence.  
+2. Formula interface for resp_surf.
+3. Reworking internals of resp_surf using matrix algbra. 
+4. Allowing arbitrary vcov function to be used for standard error calculation. 
