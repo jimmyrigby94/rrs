@@ -10,10 +10,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Imports: dplyr,
-         tidyr,
          sandwich, 
          plotly,
-         ggplot2,
-         magrittr
-         
+         ggplot2
 
