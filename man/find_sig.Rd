@@ -4,12 +4,12 @@
 \alias{find_sig}
 \title{find_sig: Find residual variance of your outcome given a vector of coefficients}
 \usage{
-find_sig(n, cor_mat, beta, target_var_y = 1, iter = 10000)
+find_sig(n, cov_mat, beta, target_var_y = 1, iter = 10000)
 }
 \arguments{
 \item{n}{Number of Obseravtion to be simulated at each iteration.}
 
-\item{cor_mat}{Correlation matrix defining how X1 and X2 are related.}
+\item{cov_mat}{Covariance matrix defining how X1 and X2 are related along with their scale.}
 
 \item{beta}{Vector of coefficients mapping terms X1, X2, X1^2, X2^2, and X1*X2 to y.}
 
@@ -29,13 +29,13 @@ the expected value of the outcome variance.
 \examples{
 
 # Defining Correlation Matrix describing how x1 and x2 are related
-# Covarince of x1^2, x2^2, and x1*x2 follow from this matrix
-cor_mat<-matrix(c(1, 0,
+# Covarince and variance of x1^2, x2^2, and x1*x2 follow from this matrix
+cov_mat<-matrix(c(1, 0,
                   0, 1), byrow = TRUE, 2, 2)
 # Defining betas x1, x2, x1^2, x2^2, and x1*x2
 beta<-c(0, 0, -.075, -.075, .15)
 
 # Simulating 10,000 draws of size 1000 assuming the correlation structure and regression weights defined above.
-sig_hat <- find_sig(n = 1000, cor_mat = cor_mat, beta = beta, target_var_y = 1)                 
+sig_hat <- find_sig(n = 1000, cov_mat = cov_mat, beta = beta, target_var_y = 1)                 
 sig_hat
 }

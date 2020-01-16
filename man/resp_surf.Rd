@@ -2,24 +2,66 @@
 % Please edit documentation in R/resp_surf.R
 \name{resp_surf}
 \alias{resp_surf}
-\title{resp_surf: Robust response surface analysis}
+\title{resp_surf: Robust Response Surface Analysis}
 \usage{
 resp_surf(dep_var = NULL, fit_var = NULL, control = NULL,
   data = NULL, robust = FALSE, cluster = NULL)
 }
 \arguments{
-\item{dep_var}{Character value containing the name of response surface analysis (character value)}
+\item{dep_var}{Character value containing the name of response surface analysis (character value).}
 
-\item{fit_var}{Character vector containing the names of fit variables for response surface analysis}
+\item{fit_var}{Character vector containing the names of X1 and X2 for response surface analysis.}
 
-\item{control}{Character vector containing the names of the covariates included in the model}
+\item{control}{Character vector containing the names of the covariates included in the model.}
 
-\item{data}{data frame containing all variables  in the model}
+\item{data}{data frame containing all variables in the model.}
 
-\item{robust}{Should robust standard errors be used?}
+\item{robust}{Logical value answering "Should robust standard errors be used?"}
 
 \item{cluster}{If clustered, what is the ID variable associated with the cluster?}
 }
+\value{
+dif_tab: a table of counting the frequency that observations fall into congruent and noncongruent quadrants.
+
+results: A tidy data frame containing the regression model results
+
+loi: A tidy data frame containing the linear and quadratic terms for lines of interest
+
+stat_pnt: The stationary point on the surface.
+
+princ_axis: the principle axes of the response surface
+
+model: the raw lm model used to generate the above information.
+
+equation: the equation generated based on the users arguments.
+}
 \description{
-resp_surf: Robust response surface analysis
+resp_surf: Robust Response Surface Analysis
+}
+\examples{
+# Importing for magrittr pipe (\%>\%)
+library(tidyverse)
+
+# Defining Correlation Matrix describing how x1 and x2 are related
+# Covarince and variance of x1^2, x2^2, and x1*x2 follow from this matrix
+cov_mat<-matrix(c(1, 0,
+                  0, 1), byrow = TRUE, 2, 2)
+
+# Defining betas x1, x2, x1^2, x2^2, and x1*x2
+beta<-c(0, 0, -.075, -.075, .15)
+
+# Defining sig_hat directly to save time for example
+sig_hat <- 0.9549575  
+
+# Generating data frame for response suface examining leaders and follower agreeableness
+simmed_df<-gen_response_surf_x(1000, cov_mat, x_names = c("L_Agree", "F_Agree"))\%>\%
+  gen_response_surf_y(beta = beta, sigma = sig_hat, y_name = "Satisfaction")
+
+# Fitting a Response Surface Model
+
+model_1<-resp_surf(dep_var = "Satisfaction", 
+                   fit_var = c("L_Agree", "F_Agree"), 
+                   data = simmed_df, 
+                   robust = FALSE)
+                   
 }

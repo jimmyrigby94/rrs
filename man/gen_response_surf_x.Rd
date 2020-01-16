@@ -26,8 +26,8 @@ For simplicities sake, assumes that variables have mean 0
 # Covarince and variance of x1^2, x2^2, and x1*x2 follow from this matrix
 cov_mat<-matrix(c(1, 0,
                   0, 1), byrow = TRUE, 2, 2)
-# Defining betas x1, x2, x1^2, x2^2, and x1*x2
-beta<-c(0, 0, -.075, -.075, .15)
 
-x_df<-gen_response_surf_x(1000, cov_mat, x_names = c("Leader_Agreeableness", "Follower_Agreeableness"))
+# Generating data frame for response suface examining leaders and follower agreeableness
+x_df<-gen_response_surf_x(1000, cov_mat, x_names = c("L_Agree", "F_Agree"))
+x_df
 }

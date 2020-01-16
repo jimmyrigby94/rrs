@@ -2,33 +2,76 @@
 % Please edit documentation in R/plot_ly_surf.R
 \name{plot_ly_surf}
 \alias{plot_ly_surf}
-\title{Title}
+\title{plot_ly_surf: Generate Interactive Plots of Response Surface Objects}
 \usage{
-plot_ly_surf(obj = NULL, max.x = NULL, min.x = NULL, max.y = NULL,
-  min.y = NULL, inc = NULL, xlab = NULL, ylab = NULL,
-  zlab = NULL, showscale = FALSE)
+plot_ly_surf(obj = NULL, max_x = NULL, min_x = NULL, max_y = NULL,
+  min_y = NULL, inc = NULL, x1_lab = NULL, x2_lab = NULL,
+  y_lab = NULL, showscale = FALSE)
 }
 \arguments{
 \item{obj}{object created by resp_surf function}
 
-\item{max.x}{max possible value of x. Defines limits.}
-
-\item{min.x}{min possible value of x. Defines limits.}
-
-\item{max.y}{max possible value of y. Defines limits.}
-
-\item{min.y}{max possible value of y. Defines limits.}
-
 \item{inc}{Increments of data to be plotted.}
 
-\item{xlab}{label for x axis}
+\item{x1_lab}{label for x axis (X1)}
 
-\item{ylab}{label for y axis}
+\item{x2_lab}{label for y axis (X2)}
 
-\item{zlab}{label for z axis}
+\item{y_lab}{label for z axis (Y)}
 
-\item{showscale}{}
+\item{showscale}{Show a color scale for the outcome variable via a legend.}
+
+\item{max_x1}{max possible value of x1. Defines limits.}
+
+\item{min_x1}{min possible value of x1. Defines limits.}
+
+\item{max_x2}{max possible value of x2. Defines limits.}
+
+\item{min_x2}{max possible value of x2. Defines limits.}
+}
+\value{
+Interactive plot of response surface.
 }
 \description{
-Title
+plot_ly_surf: Generate Interactive Plots of Response Surface Objects
+}
+\examples{
+
+# Importing for magrittr pipe (\%>\%)
+library(tidyverse)
+
+# Defining Correlation Matrix describing how x1 and x2 are related
+# Covarince and variance of x1^2, x2^2, and x1*x2 follow from this matrix
+cov_mat<-matrix(c(1, 0,
+                  0, 1), byrow = TRUE, 2, 2)
+
+# Defining betas x1, x2, x1^2, x2^2, and x1*x2
+beta<-c(0, 0, -.075, -.075, .15)
+
+# Defining sig_hat directly to save time for example
+sig_hat <- 0.9549575  
+
+# Generating data frame for response suface examining leaders and follower agreeableness
+simmed_df<-gen_response_surf_x(1000, cov_mat, x_names = c("L_Agree", "F_Agree"))\%>\%
+  gen_response_surf_y(beta = beta, sigma = sig_hat, y_name = "Satisfaction")
+
+# Fitting a Response Surface Model
+
+model_1<-resp_surf(dep_var = "Satisfaction", 
+                   fit_var = c("L_Agree", "F_Agree"), 
+                   data = simmed_df, 
+                   robust = FALSE)
+
+# Plotting Response Surface Model 
+
+plot_ly_surf(obj = model_1, 
+             max_x = 2, 
+             min_x = -2,
+             max_y =  2, 
+             min_y = -2, 
+             inc = .1, 
+             x1_lab = "Leader Agreeableness", 
+             x2_lab = "Follower Agreeableness", 
+             y_lab = "Employee Satisfaction", 
+             showscale = TRUE)
 }

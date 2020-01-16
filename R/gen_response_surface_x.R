@@ -10,7 +10,7 @@
 #' @return Data frame of IVs with requested column names.
 #' @export 
 #' @importFrom magrittr %>%
-
+#' @import dplyr
 #'
 #' @examples
 #' 
@@ -18,11 +18,9 @@
 #' # Covarince and variance of x1^2, x2^2, and x1*x2 follow from this matrix
 #' cov_mat<-matrix(c(1, 0,
 #'                   0, 1), byrow = TRUE, 2, 2)
-#' # Defining betas x1, x2, x1^2, x2^2, and x1*x2
-#' beta<-c(0, 0, -.075, -.075, .15)
 #' 
 #' # Generating data frame for response suface examining leaders and follower agreeableness
-#' x_df<-gen_response_surf_x(1000, cov_mat, x_names = c("Lead_Agreeableness", "Fol_Agreeableness"))
+#' x_df<-gen_response_surf_x(1000, cov_mat, x_names = c("L_Agree", "F_Agree"))
 #' x_df
  
 
