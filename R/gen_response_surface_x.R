@@ -1,24 +1,29 @@
 #' gen_response_surface_x: Generate IVs for Response Surface
 #'
-#' @param n Number of observations to generate
-#' @param cor_mat Correlation matrix between IVs
-#' @param x_names Names of x variables (optional)
+#' A helper function for simulating the independent variables for a response surface. Automatically calculates the interaction and quadratic terms. 
+#' For simplicities sake, assumes that variables have mean 0
+#' 
+#' @param n Number of observations to simulate.
+#' @param cov_mat Covariance matrix defining how X1 and X2 are related along with their scale.
+#' @param x_names Character vector of length two containing the names of X variables (optional)
 #'
 #' @return Data frame of IVs with requested column names.
-#' @export
+#' @export 
+#' @importFrom magrittr %>%
+
 #'
 #' @examples
-gen_response_surf_x<-function(n, cor_mat, x_names=NULL){
+gen_response_surf_x<-function(n, cov_mat, x_names=NULL){
   sample<-n
   
   suppressMessages(
-    sim_help<-MASS::mvrnorm(sample, c(0,0), cor_mat)%>%
-      as_tibble(.name_repair = "unique")%>%
-      rename(x1 = ...1,
+    sim_help<-MASS::mvrnorm(sample, c(0,0), cov_mat)%>%
+      dplyr::as_tibble(.name_repair = "unique")%>%
+      dplyr::rename(x1 = ...1,
              x2 = ...2)%>%
-      mutate(x1_sq = x1^2,
-             x2_sq = x2^2,
-             int = x1*x2)
+      dplyr::mutate(x1_sq = x1^2,
+                    x2_sq = x2^2,
+                    int = x1*x2)
   )
   
   if(!is.null(x_names)){
