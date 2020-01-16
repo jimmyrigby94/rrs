@@ -8,7 +8,14 @@
 #' @return data frame with x and y variables. 
 #' @export
 #'
-#' @examples
+#' @examples 
+#' 
+#' 
+#' 
+#' 
+#' 
+#' 
+#' 
 gen_response_surf_y<-function(x_data, beta, sigma=NULL, y_name=NULL){
   
   if(is.null(y_name)){
@@ -23,4 +30,6 @@ gen_response_surf_y<-function(x_data, beta, sigma=NULL, y_name=NULL){
   
   x_data[y_name]<-as.vector(as.matrix(x_data)%*%beta+eps)
   
+  
+  x_data
 }

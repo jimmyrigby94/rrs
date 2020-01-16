@@ -20,8 +20,11 @@ gen_response_surf_x<-function(n, cor_mat, x_names=NULL){
              x2_sq = x2^2,
              int = x1*x2)
   )
+  
   if(!is.null(x_names)){
-    colnames(sim_help)<-c(names, paste0(names, "_sq"), paste0(names, collapse = "*"))
+    colnames(sim_help)<-c(x_names, paste0(x_names, "_sq"), paste0(x_names, collapse = "*"))
   }
+  
+  sim_help
 }
 
