@@ -4,18 +4,19 @@
 \alias{gen_response_surf_x}
 \title{gen_response_surface_x: Generate IVs for Response Surface}
 \usage{
-gen_response_surf_x(n, cor_mat, x_names = NULL)
+gen_response_surf_x(n, cov_mat, x_names = NULL)
 }
 \arguments{
-\item{n}{Number of observations to generate}
+\item{n}{Number of observations to simulate.}
 
-\item{cor_mat}{Correlation matrix between IVs}
+\item{cov_mat}{Covariance matrix defining how X1 and X2 are related along with their scale.}
 
-\item{x_names}{Names of x variables (optional)}
+\item{x_names}{Character vector of length two containing the names of X variables (optional)}
 }
 \value{
 Data frame of IVs with requested column names.
 }
 \description{
-gen_response_surface_x: Generate IVs for Response Surface
+A helper function for simulating the independent variables for a response surface. Automatically calculates the interaction and quadratic terms. 
+For simplicities sake, assumes that variables have mean 0
 }
