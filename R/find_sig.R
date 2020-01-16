@@ -17,10 +17,11 @@
 #' @param beta Vector of coefficients mapping terms X1, X2, X1^2, X2^2, and X1*X2 to y.
 #' @param target_var_y The expected variance of y. 
 #' @param iter The number of iterations to run to estimate the residual variance.
-#'
+#' 
 #' @return Value of residual variance given proposed model
-#' @export
-#'
+#' @export 
+#' @importFrom magrittr %>%
+#' 
 #' @examples
 #' 
 #' # Defining Correlation Matrix describing how x1 and x2 are related
@@ -39,8 +40,8 @@ find_sig<-function(n, cor_mat, beta, target_var_y = 1, iter=10000){
   sig_vec<-c()
   
   for(i in 1:iter){
-    simmed_data<-gen_response_surf_x(n, cor_mat)%>%
-      gen_response_surf_y(beta = beta)
+    simmed_data<-rrs::gen_response_surf_x(n, cor_mat)%>%
+      rrs::gen_response_surf_y(beta = beta)
     
     sig_vec[[i]]<-target_var_y-var(simmed_data$y)
     
