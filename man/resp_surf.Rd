@@ -4,8 +4,14 @@
 \alias{resp_surf}
 \title{resp_surf: Robust Response Surface Analysis}
 \usage{
-resp_surf(dep_var = NULL, fit_var = NULL, control = NULL,
-  data = NULL, robust = FALSE, cluster = NULL)
+resp_surf(
+  dep_var = NULL,
+  fit_var = NULL,
+  control = NULL,
+  data = NULL,
+  robust = FALSE,
+  cluster = NULL
+)
 }
 \arguments{
 \item{dep_var}{Character value containing the name of response surface analysis (character value).}

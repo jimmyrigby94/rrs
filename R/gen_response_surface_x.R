@@ -7,10 +7,10 @@
 #' @param cov_mat Covariance matrix defining how X1 and X2 are related along with their scale.
 #' @param x_names Character vector of length two containing the names of X variables (optional)
 #'
-#' @return Data frame of IVs with requested column names.
-#' @export 
 #' @importFrom magrittr %>%
 #' @import dplyr
+#' @return Data frame of IVs with requested column names.
+#' @export 
 #'
 #' @examples
 #' 

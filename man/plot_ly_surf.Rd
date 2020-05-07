@@ -4,9 +4,19 @@
 \alias{plot_ly_surf}
 \title{plot_ly_surf: Generate Interactive Plots of Response Surface Objects}
 \usage{
-plot_ly_surf(obj = NULL, max_x = NULL, min_x = NULL, max_y = NULL,
-  min_y = NULL, inc = NULL, x1_lab = NULL, x2_lab = NULL,
-  y_lab = NULL, showscale = FALSE)
+plot_ly_surf(
+  obj = NULL,
+  max_x = NULL,
+  min_x = NULL,
+  max_y = NULL,
+  min_y = NULL,
+  inc = NULL,
+  x1_lab = NULL,
+  x2_lab = NULL,
+  y_lab = NULL,
+  showscale = FALSE,
+  show_princ_axis = FALSE
+)
 }
 \arguments{
 \item{obj}{object created by resp_surf function}
@@ -20,6 +30,8 @@ plot_ly_surf(obj = NULL, max_x = NULL, min_x = NULL, max_y = NULL,
 \item{y_lab}{label for z axis (Y)}
 
 \item{showscale}{Show a color scale for the outcome variable via a legend.}
+
+\item{show_princ_axis}{Plot the first and second principle axis}
 
 \item{max_x1}{max possible value of x1. Defines limits.}
 

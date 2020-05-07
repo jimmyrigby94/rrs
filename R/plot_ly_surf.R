@@ -10,6 +10,7 @@
 #' @param x2_lab label for y axis (X2)
 #' @param y_lab label for z axis (Y)
 #' @param showscale Show a color scale for the outcome variable via a legend.
+#' @param show_princ_axis Plot the first and second principle axis
 #'
 #' @return Interactive plot of response surface.
 #' @export 
@@ -54,7 +55,7 @@
 #'              y_lab = "Employee Satisfaction", 
 #'              showscale = TRUE)
 
-plot_ly_surf<-function(obj = NULL, max_x = NULL, min_x = NULL, max_y = NULL, min_y = NULL, inc = NULL,  x1_lab=NULL, x2_lab=NULL, y_lab=NULL, showscale = FALSE){
+plot_ly_surf<-function(obj = NULL, max_x = NULL, min_x = NULL, max_y = NULL, min_y = NULL, inc = NULL,  x1_lab=NULL, x2_lab=NULL, y_lab=NULL, showscale = FALSE, show_princ_axis = FALSE){
   
   #Copies the model generated in the resp_surf function for use here
   eq<-obj[["model"]]
@@ -91,19 +92,24 @@ plot_ly_surf<-function(obj = NULL, max_x = NULL, min_x = NULL, max_y = NULL, min
     y_lab<-colnames(eq$model)[1]
   }
   
-  plotly::plot_ly(x = x, y = y, z = ~z)%>% 
+  p<-plotly::plot_ly(x = x, y = y, z = ~z)%>% 
     plotly::add_surface(showscale = showscale)%>%
     plotly::add_trace(x = x[x==y], y = y[x==y], z = diag(z), line = list(color = "black"),type = 'scatter3d', mode = 'lines', name = "Line of Congruence")%>%
     plotly::add_trace(x = x, y = y[length(y):1], z = z[row(z) == (ncol(z)-col(z)+1)], line = list(color = "black", dash = 'dash'),type = 'scatter3d', mode = 'lines', name = "Line of Incongruence")%>%
     plotly::layout(scene = list(xaxis = list(title = x1_lab), 
                                 yaxis = list(title = x2_lab), 
-                                zaxis = list(title = y_lab)))%>%
+                                zaxis = list(title = y_lab)))
+  
+  if(show_princ_axis){
+    p<-p%>%
     plotly::add_trace(x = x, 
                       y = obj$princ_axis$Estimate[1]+obj$princ_axis$Estimate[2]*x,
                       z = min(z),
                       line = list(color = "red"),type = 'scatter3d', mode = 'lines', name = "First Principal Axis")%>%
-    plotly::add_trace(x = x, 
-                      y = obj$princ_axis$Estimate[3]+obj$princ_axis$Estimate[4]*x,
-                      z = min(z),
-                      line = list(color = "red", dash = 'dash'),type = 'scatter3d', mode = 'lines', name = "Second Principal Axis")
+      plotly::add_trace(x = x, 
+                        y = obj$princ_axis$Estimate[3]+obj$princ_axis$Estimate[4]*x,
+                        z = min(z),
+                        line = list(color = "red", dash = 'dash'),type = 'scatter3d', mode = 'lines', name = "Second Principal Axis")
+  }
+  p
 }
